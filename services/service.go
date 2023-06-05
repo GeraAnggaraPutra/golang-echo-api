@@ -75,13 +75,6 @@ func (s *service) Update(ID int, biodataUpdate *entity.Update) (*entity.Biodata,
 	biodata.AGE = biodataUpdate.AGE
 	biodata.ADDRESS = biodataUpdate.ADDRESS
 
-	// biodata = &entity.Biodata{
-	// 	ID:      ID,
-	// 	NAME:    biodataUpdate.NAME,
-	// 	AGE:     biodataUpdate.AGE,
-	// 	ADDRESS: biodataUpdate.ADDRESS,
-	// }
-
 	updatedBiodata, err := s.repository.Update(biodata)
 	if err != nil {
 		return nil, err
@@ -94,6 +87,11 @@ func (s *service) Delete(ID int) error {
 	if err != nil {
 		return err
 	}
+
+	if biodata == nil {
+		return errors.New("Biodata not found")
+	}
+
 	err = s.repository.Delete(biodata)
 	if err != nil {
 		return err
