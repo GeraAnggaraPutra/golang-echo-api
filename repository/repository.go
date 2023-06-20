@@ -58,8 +58,8 @@ func (r *repository) FindByID(ID int) (*entity.Biodata, error) {
 	err := r.db.QueryRow(sqlQuery, ID).Scan(&biodata.ID, &biodata.NAME, &biodata.AGE, &biodata.ADDRESS, &createdAt, &updatedAt)
 	if err != nil {
 		if err == sql.ErrNoRows {
-            return nil, nil
-        }
+			return nil, nil
+		}
 		return nil, err
 	}
 	if createdAt.Valid {
